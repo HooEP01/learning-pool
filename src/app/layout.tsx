@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { store } from "../store";
+import { Provider } from "react-redux";
+import {
+  ChakraProvider,
+  cookieStorageManagerSSR,
+  localStorageManager,
+} from "@chakra-ui/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,13 +17,24 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
+  cookies,
   children,
 }: Readonly<{
+  cookies: string | Record<string, string>;
   children: React.ReactNode;
 }>) {
+  const colorModeManager =
+    typeof cookies === "string"
+      ? cookieStorageManagerSSR(cookies)
+      : localStorageManager;
+
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <ChakraProvider colorModeManager={colorModeManager}>
+          <Provider store={store}>{children}</Provider>
+        </ChakraProvider>
+      </body>
     </html>
   );
 }
