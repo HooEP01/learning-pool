@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+// useDisclosure hook is better than this
 export const useToggle = (def = false) => {
     const [isToggled, setIsToggled] = useState(def);
 

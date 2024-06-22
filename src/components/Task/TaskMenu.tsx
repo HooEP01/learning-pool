@@ -2,10 +2,10 @@ import { AppDispatch } from "@/store";
 import { removeTask } from "@/store/task/taskSlice";
 import { Box, Button } from "@chakra-ui/react";
 import { IconBadgesOff } from "@tabler/icons-react";
-import { ReactNode, useState } from "react";
 import { useDispatch } from "react-redux";
 import CustomDialog from "../CustomDialog";
 import _ from "lodash";
+import { useNode } from "@/hooks/use-node";
 
 interface TaskFormProps {
   taskId?: string;
@@ -15,10 +15,10 @@ interface TaskFormProps {
 const TaskMenu = (props: TaskFormProps) => {
   const { taskId = "", onClose } = props;
   const dispatch: AppDispatch = useDispatch();
-  const [modal, setModal] = useState<ReactNode>(null);
+  const { node, handleNode } = useNode();
 
   const handleModal = () => {
-    setModal(
+    handleNode(
       <CustomDialog
         key={_.uniqueId("custom_dialog_")}
         func={handleGiveUp}
@@ -34,7 +34,7 @@ const TaskMenu = (props: TaskFormProps) => {
 
   return (
     <Box w={"150px"}>
-      {modal}
+      {node}
       <Button
         type="submit"
         leftIcon={<IconBadgesOff />}

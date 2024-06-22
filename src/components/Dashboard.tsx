@@ -7,16 +7,16 @@ import { AppDispatch } from "@/store";
 import _ from "lodash";
 import CustomIcon from "./CustomIcon";
 import { IconTargetArrow } from "@tabler/icons-react";
-import { ReactNode, useState } from "react";
 import TaskModal from "./Task/TaskModal";
+import { useNode } from "@/hooks/use-node";
 
 const Dashboard = () => {
   const items = useSelector(getTaskItems());
   const dispatch: AppDispatch = useDispatch();
-  const [modal, setModal] = useState<ReactNode>(null);
+  const { node, handleNode } = useNode();
 
   const handleModal = (taskId?: string) => {
-    setModal(<TaskModal key={_.uniqueId("task_modal_")} taskId={taskId} />);
+    handleNode(<TaskModal key={_.uniqueId("task_modal_")} taskId={taskId} />);
   };
 
   return (
@@ -24,7 +24,7 @@ const Dashboard = () => {
       <Flex direction="column" gap={4}>
         <h1>Dashboard</h1>
 
-        {modal}
+        {node}
 
         <Flex justify="left">
           <Button
