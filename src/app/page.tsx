@@ -1,6 +1,10 @@
-import Dashboard from "@/components/Dashboard";
 import SideMenu from "@/components/SideMenu";
 import { Container } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
+
+const Dashboard = dynamic(() => import("@/components/Dashboard"), {
+  ssr: false,
+});
 
 export default function Home() {
   return (

@@ -30,7 +30,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inter.className} suppressHydrationWarning={true}>
         <ChakraProvider colorModeManager={colorModeManager}>
           <ThemeProvider>{children}</ThemeProvider>
         </ChakraProvider>
