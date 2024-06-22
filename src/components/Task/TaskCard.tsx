@@ -3,34 +3,37 @@ import { getTaskItem } from "@/selectors/task";
 import { AppDispatch } from "@/store";
 import { Card, CardBody, Text } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-
+import _ from "lodash";
 export interface TaskCardProps {
   variant?: string;
   taskId: string;
+  onClick: (taskId?: string) => void;
 }
 
 const TaskCard = (props: TaskCardProps) => {
-  const { variant = "elevated", taskId } = props;
+  const { taskId, variant = "elevated", onClick } = props;
 
-  const { title = "" } = useSelector(getTaskItem(taskId)) || {};
+  const { id = null, title = "" } = useSelector(getTaskItem(taskId)) || {};
   const dispatch: AppDispatch = useDispatch();
 
   return (
-    <Card
-      variant={variant}
-      _hover={{
-        borderColor: "teal.500",
-        borderWidth: "2px",
-        cursor: "pointer",
-      }}
-      onClick={() => console.log("Card clicked")}
-    >
-      <CardBody>
-        <Text>
-          {title}
-        </Text>
-      </CardBody>
-    </Card>
+    <>
+      {!_.isNull(id) ? (
+        <Card
+          variant={variant}
+          _hover={{
+            borderColor: "teal.500",
+            borderWidth: "2px",
+            cursor: "pointer",
+          }}
+          onClick={() => onClick(id)}
+        >
+          <CardBody>
+            <Text>{title}</Text>
+          </CardBody>
+        </Card>
+      ) : null}
+    </>
   );
 };
 

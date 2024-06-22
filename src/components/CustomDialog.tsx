@@ -12,9 +12,9 @@ import {
 import CustomButton from "./CustomButton";
 
 interface CustomDialogProps {
-  func: <T>(...arg: any[]) => T;
+  func: (...args: any[]) => void;
   args?: any[];
-  dialogKey: string;
+  dialogKey?: string;
 }
 
 const CustomDialog = (props: CustomDialogProps) => {
@@ -44,8 +44,8 @@ const CustomDialog = (props: CustomDialogProps) => {
           <ModalCloseButton />
           <ModalBody>{description}</ModalBody>
           <ModalFooter>
-            <CustomButton text="Close" colorScheme="blue" onClick={onClose} mr={3} />
-            <CustomButton text="Yes" colorScheme="ghost"  onClick={processFunc} />
+            <CustomButton text="Close" colorScheme="blue" variant="outline" onClick={onClose} mr={3} />
+            <CustomButton text="Yes" colorScheme="teal"  onClick={processFunc} />
           </ModalFooter>
         </ModalContent>
       </Modal>

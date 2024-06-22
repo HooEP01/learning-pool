@@ -15,8 +15,8 @@ const Dashboard = () => {
   const dispatch: AppDispatch = useDispatch();
   const [modal, setModal] = useState<ReactNode>(null);
 
-  const handleModal = () => {
-    setModal(<TaskModal key={_.uniqueId('task_modal_')} />);
+  const handleModal = (taskId?: string) => {
+    setModal(<TaskModal key={_.uniqueId("task_modal_")} taskId={taskId} />);
   };
 
   return (
@@ -28,7 +28,7 @@ const Dashboard = () => {
 
         <Flex justify="left">
           <Button
-            onClick={handleModal}
+            onClick={() => handleModal()}
             leftIcon={<CustomIcon icon={IconTargetArrow} stroke="2" />}
             colorScheme="teal"
             variant="solid"
@@ -38,7 +38,9 @@ const Dashboard = () => {
         </Flex>
         <Grid templateColumns="repeat(3, 1fr)" gap={6}>
           {!_.isEmpty(items) &&
-            items.map((item) => <TaskCard key={item.id} taskId={item.id} />)}
+            items.map((item) => (
+              <TaskCard key={item.id} taskId={item.id} onClick={handleModal} />
+            ))}
         </Grid>
       </Flex>
     </Box>

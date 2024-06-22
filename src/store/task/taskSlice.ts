@@ -41,9 +41,9 @@ export const addTaskAsync = createAsyncThunk(
 
 export const removeTaskAsync = createAsyncThunk(
     "task/removeTaskAsync",
-    async (pk: string, thunkApi) => {
+    async (id: string, thunkApi) => {
         try {
-            const response = await apiClient.delete(`/task/${pk}`);
+            const response = await apiClient.delete(`/task/${id}`);
             return thunkApi.fulfillWithValue(response.data);
 
         } catch (error) {
@@ -57,7 +57,7 @@ export const updateTaskAsync = createAsyncThunk(
     "task/updateTaskAsync",
     async (task: Task, thunkApi) => {
         try {
-            const response = await apiClient.put(`/task/${task.pk}`, task);
+            const response = await apiClient.put(`/task/${task.id}`, task);
             return thunkApi.fulfillWithValue(response.data);
 
         } catch (error) {
@@ -75,10 +75,10 @@ const taskSlice = createSlice({
             state.items.push(action.payload);
         },
         removeTask(state, action) {
-            state.items = state.items.filter((task) => task.pk !== action.payload);
+            state.items = state.items.filter((task) => task.id !== action.payload);
         },
         updateTask(state, action) {
-            const task = state.items.find((task) => task.pk === action.payload.pk);
+            const task = state.items.find((task) => task.id === action.payload.id);
             if (task) {
                 task.title = action.payload.title;
                 task.description = action.payload.description;
@@ -88,5 +88,5 @@ const taskSlice = createSlice({
     extraReducers: (builder) => builder
 });
 
-export const { addTask } = taskSlice.actions;
+export const { addTask, removeTask, updateTask } = taskSlice.actions;
 export default taskSlice.reducer;
