@@ -4,10 +4,13 @@ import "./globals.css";
 
 import {
   ChakraProvider,
+  Flex,
   cookieStorageManagerSSR,
   localStorageManager,
 } from "@chakra-ui/react";
 import ThemeProvider from "./theme-provider";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,7 +35,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className} suppressHydrationWarning={true}>
         <ChakraProvider colorModeManager={colorModeManager}>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            <Flex direction="column" minH="100vh">
+              <Flex flex="1" direction="column" minH="90vh">
+                <Header />
+                {children}
+              </Flex>
+              <Footer />
+            </Flex>
+          </ThemeProvider>
         </ChakraProvider>
       </body>
     </html>

@@ -3,7 +3,7 @@ import { removeTask } from "@/store/task/taskSlice";
 import { Box, Button } from "@chakra-ui/react";
 import { IconBadgesOff } from "@tabler/icons-react";
 import { useDispatch } from "react-redux";
-import CustomDialog from "../CustomDialog";
+import CustomDialog from "../Custom/CustomDialog";
 import _ from "lodash";
 import { useNode } from "@/hooks/use-node";
 
