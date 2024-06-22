@@ -1,4 +1,4 @@
-import { Dialog, dialogs } from "@/constant";
+import { Dialog, Dialogs } from "@/constant";
 import {
   Modal,
   ModalBody,
@@ -21,8 +21,8 @@ const CustomDialog = (props: CustomDialogProps) => {
   const { func, dialogKey = "general", args = [] } = props;
   const { isOpen, onClose } = useDisclosure({ defaultIsOpen: true });
 
-  const { title, description } = dialogs[
-    dialogKey as keyof typeof dialogs
+  const { title, description } = Dialogs[
+    dialogKey as keyof typeof Dialogs
   ] as Dialog;
 
   const processFunc = () => {

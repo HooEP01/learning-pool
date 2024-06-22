@@ -1,6 +1,6 @@
 import { getTaskItem } from "@/selectors/task";
 import { AppDispatch } from "@/store";
-import { addTask } from "@/store/task/taskSlice";
+import { addTask, updateTask } from "@/store/task/taskSlice";
 import {
   Input,
   FormControl,
@@ -33,15 +33,20 @@ const TaskForm = (props: TaskFormProps) => {
 
   const { register, handleSubmit } = useForm({
     defaultValues: {
+      id: id,
       title: title,
       description: description,
     },
   });
 
   const onSubmit = (data: any) => {
-    data = { ...data, id: _.uniqueId() };
-    dispatch(addTask(data));
-    onClose();
+    if (_.isNull(id)) {
+      data = { ...data, id: _.uniqueId() };
+      dispatch(addTask(data));
+      onClose();
+    } else {
+      dispatch(updateTask(data));
+    }
   };
 
   return (
@@ -78,7 +83,7 @@ const TaskForm = (props: TaskFormProps) => {
             colorScheme="teal"
             variant="solid"
           >
-            Add Task
+            {_.isEmpty(id) ? "Add Task" : "Update Task"}
           </Button>
         </VStack>
       </form>

@@ -1,5 +1,14 @@
 "use client";
-import { Box, Button, Flex, Grid } from "@chakra-ui/react";
+import {
+  Box,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  Button,
+  Flex,
+  Grid,
+  Heading,
+} from "@chakra-ui/react";
 import TaskCard from "./Task/TaskCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getTaskItems } from "@/selectors/task";
@@ -22,15 +31,27 @@ const Dashboard = () => {
   return (
     <Box flex={1} p={5}>
       <Flex direction="column" gap={4}>
-        <h1>Dashboard</h1>
-
         {node}
 
-        <Flex justify="left">
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">Dashboard</BreadcrumbLink>
+          </BreadcrumbItem>
+
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">Tasks</BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
+
+        <Flex justify={"space-between"} align={"center"}>
+          <Heading as="h2" size="lg" noOfLines={1}>
+            Task
+          </Heading>
           <Button
             onClick={() => handleModal()}
             leftIcon={<CustomIcon icon={IconTargetArrow} stroke="2" />}
             colorScheme="teal"
+            bg="teal.400"
             variant="solid"
           >
             Task
