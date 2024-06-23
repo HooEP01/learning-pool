@@ -26,6 +26,6 @@ export const LinkItems: Array<LinkItem> = [
     { name: 'Home', icon: IconHome, href: '/home' },
     { name: 'Tasks', icon: IconTank, href: '/' },
     { name: 'Explore', icon: IconInputSearch, href: '/explore' },
-    { name: 'Favourites', icon: IconHeart, href: '/favourites' },
+    { name: 'Pools', icon: IconHeart, href: '/pools' },
     { name: 'Settings', icon: IconSettings, href: '/settings' },
 ];

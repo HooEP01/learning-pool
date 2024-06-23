@@ -1,14 +1,16 @@
 import { Task } from "@/model/task.model";
 import apiClient from "@/utils/http";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosError } from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface TaskState {
     items: Task[];
+    poolItems: Task[];
 }
 
 const initialState: TaskState = {
-    items: []
+    items: [],
+    poolItems: []
 };
 
 export const fetchTasksAsync = createAsyncThunk(
@@ -58,6 +60,20 @@ export const updateTaskAsync = createAsyncThunk(
     async (task: Task, thunkApi) => {
         try {
             const response = await apiClient.put(`/task/${task.id}`, task);
+            return thunkApi.fulfillWithValue(response.data);
+
+        } catch (error) {
+            const err = error as AxiosError;
+            return thunkApi.rejectWithValue(err.response?.data);
+        }
+    }
+);
+
+export const fetchPoolTasksAsync = createAsyncThunk(
+    "task/fetchPoolTasksAsync",
+    async (poolPk: string, thunkApi) => {
+        try {
+            const response = await apiClient.get(`/task/pool/${poolPk}`);
             return thunkApi.fulfillWithValue(response.data);
 
         } catch (error) {

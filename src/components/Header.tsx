@@ -1,17 +1,13 @@
 "use client";
 import {
   Box,
-  Collapse,
   Flex,
   Heading,
-  IconButton,
-  Link,
   Stack,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import CustomIcon from "./Custom/CustomIcon";
 import MobileNav from "./Navigation/MobileNav";
+import Theme from "./Theme";
 
 const Header = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
@@ -31,7 +27,7 @@ const Header = () => {
           <Heading size="sm">LearningPool</Heading>
         </Flex>
 
-        <Box display={{ base: isMobile ? "block" : "none", md: "none"}}>
+        <Box display={{ base: isMobile ? "block" : "none", md: "none" }}>
           {isMobile && <MobileNav />}
         </Box>
 
@@ -40,7 +36,7 @@ const Header = () => {
           alignItems="center"
         >
           <Stack direction={{ base: "column", md: "row" }} spacing={4}>
-            <Link
+            {/* <Link
               href="#home"
               px={2}
               py={1}
@@ -48,7 +44,8 @@ const Header = () => {
               _hover={{ bg: "teal.600" }}
             >
               <CustomIcon />
-            </Link>
+            </Link> */}
+            <Theme />
           </Stack>
         </Box>
       </Flex>
