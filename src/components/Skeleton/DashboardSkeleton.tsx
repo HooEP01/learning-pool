@@ -8,7 +8,9 @@ import {
 import CardSkeleton from "./CardSkeleton";
 import _ from "lodash";
 
-const DashboardSkeleton = () => {
+const DashboardSkeleton = ({
+  children,
+}: Readonly<{ children?: React.ReactNode }>) => {
   return (
     <Flex flex={1} direction="column" gap={4}>
       <Breadcrumb>
@@ -20,6 +22,8 @@ const DashboardSkeleton = () => {
           <BreadcrumbLink href="#">Tasks</BreadcrumbLink>
         </BreadcrumbItem>
       </Breadcrumb>
+
+      {children}
 
       <Grid
         templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)"]}

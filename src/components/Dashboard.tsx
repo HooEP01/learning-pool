@@ -18,15 +18,22 @@ import CustomIcon from "./Custom/CustomIcon";
 import { IconTargetArrow } from "@tabler/icons-react";
 import TaskModal from "./Task/TaskModal";
 import { useNode } from "@/hooks/use-node";
+import { useErrorBoundary } from "react-error-boundary";
 
 const Dashboard = () => {
   const items = useSelector(getTaskItems());
   const dispatch: AppDispatch = useDispatch();
   const { node, handleNode } = useNode();
+  const { showBoundary } = useErrorBoundary();
 
   const handleModal = (taskId?: string) => {
     handleNode(<TaskModal key={_.uniqueId("task_modal_")} taskId={taskId} />);
   };
+
+  const triggerError = () => {
+    const err = new Error("ErrorBoundary: Task Error");
+    showBoundary(err)
+  }
 
   return (
     <Flex flex={1} direction="column" gap={4}>
@@ -47,7 +54,8 @@ const Dashboard = () => {
           Task
         </Heading>
         <Button
-          onClick={() => handleModal()}
+          // onClick={() => handleModal()}
+          onClick={() => triggerError()}
           leftIcon={<CustomIcon icon={IconTargetArrow} stroke="2" />}
           colorScheme="teal"
           bg="teal.400"
